@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,6 +59,9 @@
     }
     .nav-links { display:flex; gap:24px; color:var(--muted); font-size:13px; }
     .nav-links a:hover { color:var(--text); }
+    .nav-tools { display:flex; align-items:center; gap:16px; }
+    .lang-toggle { border:1px solid var(--line); border-radius:9px; padding:8px 11px; color:var(--cyan); background:rgba(255,255,255,.035); font:500 11px "DM Mono",monospace; cursor:pointer; }
+    .lang-toggle:hover { border-color:var(--cyan); }
     .status { display:flex; align-items:center; gap:9px; font-size:12px; color:var(--green); white-space:nowrap; }
     .dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 14px var(--green); }
     .hero { padding:94px 0 72px; display:grid; grid-template-columns:1.35fr .65fr; gap:48px; align-items:center; }
@@ -149,6 +152,8 @@
       .hero { grid-template-columns:1fr; padding-top:64px; gap:30px; }
       .hero-card { max-width:600px; }
       .nav-links { display:none; }
+      .nav-tools { margin-left:auto; }
+      .nav-tools .status { display:none; }
       .skills-grid { grid-template-columns:repeat(2,1fr); }
       .roles-grid { grid-template-columns:1fr; }
       .project-showcase { grid-template-columns:1fr; }
@@ -181,7 +186,7 @@
       <div class="nav-links">
         <a href="#about">Обо мне</a><a href="#directions">Направления</a><a href="#projects">Проекты</a><a href="#experience">Опыт</a><a href="#skills">Навыки</a><a href="#education">Образование</a><a href="#contacts">Контакты</a>
       </div>
-      <div class="status"><span class="dot"></span> IT Support · Sysadmin · DevOps</div>
+      <div class="nav-tools"><button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language to English">EN</button><div class="status"><span class="dot"></span> IT Support · Sysadmin · DevOps</div></div>
     </nav>
   </div>
 
@@ -359,6 +364,49 @@
     <footer><span>© <span id="year"></span> Николай Фазлеев</span><span>Сделано с вниманием к деталям <span style="color:var(--violet)">✦</span></span></footer>
   </main>
   <script>
+
+    const translations = {"Обо мне": "About me", "Направления": "Focus areas", "Проекты": "Projects", "Опыт": "Experience", "Навыки": "Skills", "Образование": "Education", "Контакты": "Contact", "Николай": "Nikolay", "Фазлеев.": "Fazleev.", "Смотреть опыт": "View experience", "Связаться": "Get in touch", "5+ лет": "5+ years", "суммарный опыт в IT": "of IT experience", "12+": "12+", "технологий и инструментов": "technologies and tools", "3": "3", "профессиональных направления": "professional focus areas", "01 / Профиль": "01 / PROFILE", "Три смежных направления — с разным акцентом на поддержке, инфраструктуре и автоматизации.": "Three related career paths, focused on support, infrastructure, and automation.", "Кто я": "WHO I AM", "Практик, который любит разбираться": "A hands-on problem solver", "Работал с пользовательскими обращениями, Service Desk, настройкой рабочих мест, периферийным оборудованием, учётными записями и корпоративными сервисами. Сильные стороны — ответственность, логическое мышление и умение самостоятельно искать решения.": "I have worked with user requests, service desks, workstation setup, peripherals, user accounts, and corporate services. My strengths include responsibility, logical thinking, and finding solutions independently.", "Куда двигаюсь": "CAREER GOAL", "В сторону DevOps": "Moving toward DevOps", "Развиваю навыки Linux, Docker, Nginx, Git и Python. Рассматриваю DevOps как направление дальнейшего роста, не подменяя им уже имеющийся опыт технической поддержки и администрирования.": "I am developing my Linux, Docker, Nginx, Git, and Python skills. DevOps is my target for further growth, building on my existing IT support and administration experience.", "02 / Направления": "02 / FOCUS AREAS", "Чем могу быть полезен": "How I can contribute", "Позиционирование для трёх смежных ролей — на основе реального опыта и текущих технических навыков.": "Three related roles based on my actual experience and current technical skills.", "Специалист технической поддержки": "IT Support Specialist", "Поддержка пользователей, обработка заявок, диагностика неисправностей, настройка ПК и периферии, управление учётными записями и доступами.": "User support, ticket handling, troubleshooting, PC and peripheral setup, and account and access management.", "Системный администратор": "System Administrator", "Сопровождение рабочих станций и серверов, Linux-среда, сетевые основы, виртуализация и корпоративные сервисы.": "Workstation and server support, Linux environments, networking fundamentals, virtualization, and corporate services.", "DevOps-инженер": "DevOps Engineer", "Целевое направление развития: контейнеризация, инструменты развёртывания, скриптинг и автоматизация инфраструктурных задач.": "Target growth area: containerization, deployment tools, scripting, and infrastructure task automation.", "03 / Карьера": "03 / CAREER", "Опыт работы": "Work experience", "Опыт от пользовательской поддержки до сопровождения корпоративных IT-сервисов.": "Experience ranging from end-user support to maintaining corporate IT services.", "Инженер технической поддержки": "Technical Support Engineer", "Поддерживал пользователей внутренней IT-инфраструктуры.": "Provided support to users of the internal IT infrastructure.", "Принимал, регистрировал и обрабатывал заявки через Service Desk, электронную почту и телефон.": "Received, logged, and handled requests via the service desk, email, and phone.", "Диагностировал и устранял аппаратные и программные неисправности ПК, ноутбуков и периферийных устройств.": "Diagnosed and resolved hardware and software issues with PCs, laptops, and peripherals.", "Подключал и настраивал рабочие места, устанавливал и обновлял операционные системы и прикладное ПО.": "Set up workstations and installed and updated operating systems and application software.", "Настраивал принтеры, сканеры и МФУ, консультировал пользователей по работе с ПО и оборудованием.": "Configured printers, scanners, and multifunction devices; advised users on software and hardware.", "Работал с Active Directory: создавал и администрировал учётные записи, настраивал права доступа.": "Managed Active Directory user accounts and access permissions.", "Поддерживал доступ к общим папкам, принт-серверам и сетевым дискам; следил за обновлениями и антивирусной защитой рабочих станций.": "Maintained access to shared folders, print servers, and network drives; monitored workstation updates and antivirus protection.", "Вёл техническую документацию и отчётность по заявкам.": "Maintained technical documentation and ticket reports.", "Специалист по информационным технологиям": "IT Specialist", "Устанавливал и сопровождал серверы, рабочие станции, периферийное оборудование и оргтехнику.": "Installed and maintained servers, workstations, peripherals, and office equipment.", "Организовывал работу прикладного ПО на рабочих местах: Microsoft Office, Mango Talker, Adobe, 1С, плагины для банковских веб-приложений и государственных сайтов.": "Configured workstation applications including Microsoft Office, Mango Talker, Adobe, 1C, and plugins for banking and government websites.", "Администрировал Microsoft Office 365 и работал с Azure Active Directory.": "Administered Microsoft Office 365 and worked with Azure Active Directory.", "Участвовал в организации миграции документов с файлового сервера в Microsoft SharePoint.": "Helped migrate documents from a file server to Microsoft SharePoint.", "Помогал организовать две миграции почты: с Zimbra на Microsoft Exchange и между тенантами Microsoft Exchange.": "Helped coordinate two email migrations: from Zimbra to Microsoft Exchange and between Microsoft Exchange tenants.", "Принимал и обрабатывал обращения пользователей в Service Desk.": "Received and processed user requests in the service desk.", "Поддерживал ПК и периферийные устройства, диагностировал и устранял аппаратные и программные неисправности.": "Supported PCs and peripherals, diagnosing and resolving hardware and software issues.", "Подключал новые рабочие места, устанавливал и настраивал программное обеспечение и периферийное оборудование.": "Set up new workstations and installed and configured software and peripherals.", "Организовал систему учёта оборудования на базе GLPI и ввёл её в эксплуатацию.": "Implemented an equipment inventory system using GLPI.", "Готовил ноутбуки для удалённой работы в период пандемии: устанавливал ПО, настраивал VPN-подключения и необходимые рабочие приложения.": "Prepared laptops for remote work during the pandemic, installing software, configuring VPN connections, and setting up required work applications.", "Работал в IT-аутсорсинговой компании: принимал обращения пользователей по телефону и помогал решать проблемы с программным обеспечением.": "Worked at an IT outsourcing company, handling phone requests and helping users resolve software issues.", "Подключался к компьютерам пользователей через средства удалённого доступа для диагностики и устранения неисправностей.": "Used remote access tools to diagnose and resolve issues on users’ computers.", "Выезжал к заказчикам для решения аппаратных проблем и устранения неполадок сетевого оборудования.": "Visited client sites to resolve hardware problems and network equipment issues.", "05 / Проекты": "05 / PROJECTS", "Мои проекты": "My projects", "Отдельное пространство для технических проектов, экспериментов и практических работ.": "A dedicated space for technical projects, experiments, and hands-on work.", "Проекты на GitHub": "Projects on GitHub", "Здесь будут собраны мои проекты и практические работы: скрипты, эксперименты с Linux и Docker, инфраструктурные решения и другие IT-задачи по мере их появления.": "A collection of projects and hands-on work: scripts, Linux and Docker experiments, infrastructure solutions, and other IT tasks as they are published.", "Открыть GitHub": "Visit GitHub", "06 / Инструментарий": "06 / TOOLKIT", "Навыки и технологии": "Skills and technologies", "Инструменты, указанные в резюме.": "Tools listed in my résumé.", "07 / Обучение": "07 / EDUCATION", "Образование и курсы": "Education and courses", "Колледж связи №54": "College of Communications No. 54", "2018 · Организация и технология защиты информации": "2018 · Information Security Organization and Technology", "Инженер облачных сервисов": "Cloud Services Engineer", "Docker для начинающих": "Docker for Beginners", "Программирование на Python": "Python Programming", "Русский — родной": "Russian — Native", "Английский — A2": "English — A2", "08 / Контакты": "08 / CONTACT", "Обсудим задачу?": "Let’s discuss your project", "Открыт к профессиональному общению и новым возможностям в IT.": "Open to professional conversations and new opportunities in IT.", "Тбилиси · офис или удалённо": "Tbilisi · on-site or remote", "Сделано с вниманием к деталям": "Made with attention to detail", "АПР 2021 — ОКТ 2022": "APR 2021 — OCT 2022", "ОКТ 2019 — ДЕК 2020": "OCT 2019 — DEC 2020", "СЕН 2018 — ОКТ 2019": "SEP 2018 — OCT 2019", "ИЮНЬ 2025 — АВГ 2026": "JUN 2025 — AUG 2026", "Николай Фазлеев": "Nikolay Fazleev", "Тбилиси": "Tbilisi"};
+    Object.assign(translations, {
+      "IT-специалист с опытом технической поддержки пользователей и корпоративной инфраструктуры. Рассматриваю три направления: техническая поддержка, системное администрирование и DevOps — с опорой на практический опыт и дальнейшее развитие.": "IT professional with experience in user support and corporate infrastructure. I am considering three career paths: IT support, system administration, and DevOps, building on my hands-on experience while continuing to grow.",
+      "Москва": "Moscow",
+      "АНО «ТВ-Новости» · Москва": "ANO TV-Novosti · Moscow",
+      "ООО «Гельтек-Медика» · Москва": "Geltek-Medica LLC · Moscow",
+      "ООО Ломбард «Юг БФР»": "Yug BFR Pawnshop LLC",
+      "«Ай лайк айти сервис» · Москва": "I Like IT Service · Moscow",
+      "IT-специалист с опытом технической поддержки пользователей и корпоративной инфраструктуры.": "IT professional with experience in user support and corporate infrastructure.",
+      "Смотреть опыт": "View experience",
+      "Связаться": "Get in touch",
+      "Сделано с вниманием к деталям": "Made with attention to detail",
+      "Инструменты, указанные в резюме.": "Tools listed in my résumé.",
+      "Тбилиси · офис или удалённо": "Tbilisi · on-site or remote"
+    });
+    const langToggle = document.getElementById("langToggle");
+    const originalTexts = new Map();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      if (node.nodeValue.trim()) originalTexts.set(node, node.nodeValue);
+    }
+    const originalTitle = document.title;
+    const originalDescription = document.querySelector('meta[name="description"]').content;
+    let currentLang = "en";
+    function setLanguage(lang) {
+      currentLang = lang;
+      originalTexts.forEach((original, node) => {
+        const key = original.trim();
+        if (lang === "en" && translations[key]) node.nodeValue = original.replace(key, translations[key]);
+        else node.nodeValue = original;
+      });
+      document.documentElement.lang = lang;
+      document.title = lang === "en" ? "Nikolay Fazleev — IT Engineer" : originalTitle;
+      document.querySelector('meta[name="description"]').content = lang === "en" ? "Nikolay Fazleev's portfolio: IT support, system administration, and DevOps." : originalDescription;
+      langToggle.textContent = lang === "ru" ? "EN" : "RU";
+      langToggle.setAttribute("aria-label", lang === "ru" ? "Switch language to English" : "Переключить язык на русский");
+      try { localStorage.setItem("portfolio-language", lang); } catch (e) {}
+    }
+    langToggle.addEventListener("click", () => setLanguage(currentLang === "ru" ? "en" : "ru"));
+    setLanguage("en");
+
     document.getElementById("year").textContent = new Date().getFullYear();
     const items = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
